@@ -2,6 +2,7 @@ package com.amazon.randomcutforest.examples.serialization;
 
 import com.amazon.randomcutforest.parkservices.ThresholdedRandomCutForest;
 import com.amazon.randomcutforest.parkservices.state.ThresholdedRandomCutForestMapper;
+import com.amazon.randomcutforest.parkservices.state.ThresholdedRandomCutForestState;
 import com.google.gson.Gson;
 
 import java.util.Random;
@@ -14,8 +15,8 @@ public class GsonExample {
     public static void main(String[] args) throws Exception {
 
         String gsonString = teststate();
-        ThresholdedRandomCutForest forest = gson.fromJson(gsonString, ThresholdedRandomCutForest.class);
-        System.out.println("Parsed tree component size " + forest.getForest().getComponents().size());
+        ThresholdedRandomCutForestState state = gson.fromJson(gsonString, ThresholdedRandomCutForestState.class);
+        System.out.println("Parsed tree size " + state.getForestState().getCompactRandomCutTreeStates().size());
     }
 
     public static String teststate() {
