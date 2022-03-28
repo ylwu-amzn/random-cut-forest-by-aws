@@ -13,7 +13,6 @@ public class GsonExample {
     static ThresholdedRandomCutForestMapper trcfMapper = new ThresholdedRandomCutForestMapper();;
 
     public static void main(String[] args) throws Exception {
-
         String gsonString = teststate();
         ThresholdedRandomCutForestState state = gson.fromJson(gsonString, ThresholdedRandomCutForestState.class);
         System.out.println("Parsed tree size " + state.getForestState().getCompactRandomCutTreeStates().size());
