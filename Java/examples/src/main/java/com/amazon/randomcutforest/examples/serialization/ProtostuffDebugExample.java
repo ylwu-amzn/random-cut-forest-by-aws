@@ -3,6 +3,8 @@ package com.amazon.randomcutforest.examples.serialization;
 import com.amazon.randomcutforest.parkservices.ThresholdedRandomCutForest;
 import com.amazon.randomcutforest.parkservices.state.ThresholdedRandomCutForestMapper;
 import com.amazon.randomcutforest.parkservices.state.ThresholdedRandomCutForestState;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;
@@ -29,6 +31,7 @@ public class ProtostuffDebugExample {
             );
 
     public static void main(String[] args) throws Exception {
+        //testObjectMapper();
         //testParseTRCF();
         testParseADModel();
     }
@@ -52,6 +55,18 @@ public class ProtostuffDebugExample {
         System.out.println(forest);
     }
 
+    public static void testObjectMapper() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+        ThresholdedRandomCutForestState state = mapper.readValue(getModelJson(), ThresholdedRandomCutForestState.class);
+        System.out.println(state);
+    }
+
+    private static String getModelJson() throws IOException {
+        String filePath = "/Users/ylwu/code/os/random-cut-forest-by-aws/Java/examples/src/main/resources/state_2.json";
+        String json = new String(Files.readAllBytes(Paths.get(filePath)));
+        return json;
+    }
 
     private static String toCheckpoint(ThresholdedRandomCutForest trcf, LinkedBuffer buffer) {
         try {
